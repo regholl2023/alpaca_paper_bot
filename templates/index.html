@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Alpaca Trading Bot</title>
+    <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+</head>
+
+<body>
+    <h1>Alpaca Trading Bot</h1>
+
+    <div id="chart"></div>
+
+    <div id="trades"></div>
+
+    <div style="border: solid gray 1px; padding: 20px; width: 600px; margin-top: 20px;">
+        <h3>Buy Stocks</h3>
+        <form action="/buy" method="post">
+            <input type="text" id="quantity" name="quantity" placeholder="eg. 1" />
+            <select id="symbol" name="symbol">
+                <option>AAPL</option>
+                <option>MSFT</option>
+                <option>GOOGL</option>
+                <!-- Add more options as needed -->
+            </select>
+            <input type="submit" name="buy" value="buy" />
+        </form>
+    </div>
+
+    <div style="border: solid gray 1px; padding: 20px; width: 600px; margin-top: 20px;">
+        <h3>Sell Stocks</h3>
+        <form action="/sell" method="post">
+            <input type="text" id="quantity" name="quantity" placeholder="eg. 1" />
+            <select id="symbol" name="symbol">
+                <option>AAPL</option>
+                <option>MSFT</option>
+                <option>GOOGL</option>
+                <!-- Add more options as needed -->
+            </select>
+            <input type="submit" name="sell" value="sell" />
+        </form>
+    </div>
+
+    <div style="border: solid gray 1px; padding: 20px; width: 600px; margin-top: 20px;">
+        <h3>Backtest Strategy</h3>
+        <form action="/backtest" method="post">
+            <select id="strategy_class" name="strategy_class">
+                <option>MyStrategy</option>
+                <!-- Add more options as needed -->
+            </select>
+            <input type="submit" name="backtest" value="Backtest" />
+        </form>
+    </div>
+
+    <!-- Rest of your HTML code -->
+
+</body>
+
+</html>
+
+<h3>Settings</h3>
+
+<div id="settings">
+    <input type="checkbox" /> SMA
+    <input type="text" id="sma_length" name="sma_length" placeholder="14" />
+    <input type="checkbox" /> EMA
+    <input type="text" id="ema_length" name="ema_length" placeholder="14" />
+    <input type="checkbox" /> RSI
+    <input type="text" id="rsi_length" name="rsi_length" placeholder="14" />
+    Overbought
+    <input type="text" id="rsi_overbought" name="rsi_overbought" placeholder="70" />
+    Oversold
+    <input type="text" id="rsi_oversold" name="rsi_oversold" placeholder="30" />
+</div>
+
+<div id="my_balances">
+    <h2>Balances</h2>
+    <table>
+        {% for balance in balances %}
+        <tr>
+            <td>{{ balance.asset }}</td>
+            <td>{{ balance.amount }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<script>
+    // TODO: Add your JavaScript code here
+</script>
+</body>
+
+</html>

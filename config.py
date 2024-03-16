@@ -1,7 +1,11 @@
 # Alpaca API credentials
-PAPER_ALPACA_API_KEY = "${env:alpaca_id}",
-PAPER_ALPACA_SECRET_KEY = "${env:alpaca_sec}",
+import os
 
+API_KEY = os.environ.get('ALPACA_ID')
+API_SECRET = os.environ.get('ALPACA_SECRET')
+
+WS_OST = "https://paper-api.alpaca.markets/v2"
+WEBHOOK_PASSPHRASE = ""
 # Exchange details
 EXCHANGE = "alpaca"  # Or any other supported exchange by CCXT
 SYMBOL = "BTC/USDT"  # Or any other symbol you
