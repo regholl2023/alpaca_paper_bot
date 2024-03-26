@@ -1,8 +1,8 @@
 # Alpaca API credentials
 import os
 
-API_KEY = os.environ.get('ALPACA_ID')
-API_SECRET = os.environ.get('ALPACA_SECRET')
+API_KEY = os.environ.get('alpaca_id')
+API_SECRET = os.environ.get('alpaca_sec')
 
 WS_HOST = "https://paper-api.alpaca.markets/v2"
 WEBHOOK_PASSPHRASE = ""

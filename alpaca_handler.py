@@ -1,14 +1,24 @@
 import alpaca_trade_api as tradeapi
+from alpaca_trade_api.common import URL
 from config import API_KEY, API_SECRET, WS_HOST
 from backtesting import Backtest, Strategy
 import pandas_ta as ta
 
-
-
 class AlpacaHandler:
     def __init__(self):
-        self.api = tradeapi.REST(API_KEY, API_SECRET, base_url=WS_HOST)
-        self.conn = tradeapi.stream2.StreamConn(API_KEY, API_SECRET, base_url=WS_HOST)
+        self.api = tradeapi.REST(API_KEY, API_SECRET, base_url='https://paper-api.alpaca.markets')
+        self.conn = tradeapi.stream.Stream(
+            key_id=API_KEY,
+            secret_key=API_SECRET,
+            base_url='https://paper-api.alpaca.markets',
+            data_feed='iex'  # replace with 'sip' if you're using the paid data feed
+        )
+        self.conn.subscribe_trades(self.on_trade_update, '*')  # subscribe to trade updates for all symbols
+
+    async def on_trade_update(self, trade):
+        print(f"Received new trade: {trade}")
+        # Update indicators and make trading decision
+        # This is a simplified example. You'll need to implement your own logic here.
 
     def fetch_data(self, symbol, timeframe, limit):
         return self.api.get_barset(symbol, timeframe, limit).df[symbol]
