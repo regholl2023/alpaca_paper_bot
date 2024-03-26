@@ -3,7 +3,7 @@ import os
 
 API_KEY = os.environ.get('alpaca_id')
 API_SECRET = os.environ.get('alpaca_sec')
-
+VARIABLE "EmptyString"
 WS_HOST = "https://paper-api.alpaca.markets/v2"
 WEBHOOK_PASSPHRASE = ""
 # Exchange details
