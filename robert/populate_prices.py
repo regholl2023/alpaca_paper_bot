@@ -28,7 +28,7 @@ for i in range(0, len(symbols), chunk_size):
         asset_id = asset_dict[bar.S]
         print(bar.t, bar.o, bar.h, bar.l, bar.c, bar.v)
         cursor.execute("""
-            INSERT INTO asset_prices (asset_id, dat, open, high, low, close, volume)
+            INSERT INTO asset_prices (asset_id, date, open, high, low, close, volume)
             VALUES (?,?,?,?,?,?,?)
         """, (asset_id, bar.t.date(), bar.o, bar.h, bar.l, bar.c, bar.v))
 

@@ -23,7 +23,7 @@ try:
         CREATE TABLE IF NOT EXISTS asset_prices (
             id INTEGER PRIMARY KEY,
             asset_id INTEGER,
-            dat TEXT,
+            date TEXT,
             open REAL,
             high REAL,
             low REAL,
