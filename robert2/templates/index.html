@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Stonks</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
+   
+</head>
+<body>
+    
+    <div class="ui container">
+        <h1>Stonk List</h1>
+        <table class="ui striped table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Symbol</th>
+                <th>Name</th>
+                <th>Exchange</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for asset in assets %}
+                <tr>
+                    <td> {{ asset.id }}</td>
+                    <td> {{ asset.symbol }}</td>
+                    <td><a href="/stonk/{{ asset.symbol }}">{{ asset.name }}</a></td>
+                    <td>{{ asset.exchange }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+    </div>
+    
+</body>
+</html>
