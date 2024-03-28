@@ -20,14 +20,20 @@
               </tr>
             </thead>
             <tbody>
-                {% for asset in assets %}
-                <tr>
-                    <td> {{ asset.id }}</td>
-                    <td> {{ asset.symbol }}</td>
-                    <td><a href="/stonk/{{ asset.symbol }}">{{ asset.name }}</a></td>
-                    <td>{{ asset.exchange }}</td>
-                </tr>
-                {% endfor %}
+              {% for asset in assets %}
+              <tr>
+                <td> {{ asset.id }}</td>
+                <td> {{ asset.symbol }}</td>
+                <td>
+                  {% if asset.price_count > 0 %}
+                  <a href="/stonk/{{ asset.symbol }}">{{ asset.name }}</a>
+                  {% else %}
+                  {{ asset.name }} (No prices)
+                  {% endif %}
+                </td>
+                <td>{{ asset.exchange }}</td>
+              </tr>
+              {% endfor %}
             </tbody>
           </table>
     </div>

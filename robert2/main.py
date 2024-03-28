@@ -18,7 +18,11 @@ def index(request: Request):
 
     try:
         cursor.execute("""
-            SELECT id, symbol, name, exchange FROM assets ORDER BY symbol
+            SELECT assets.id, assets.symbol, assets.name, assets.exchange, COUNT(asset_prices.id) as price_count
+            FROM assets
+            LEFT JOIN asset_prices ON assets.id = asset_prices.asset_id
+            GROUP BY assets.id
+            ORDER BY assets.symbol
         """)
         rows = cursor.fetchall()
     except sqlite3.Error as e:
