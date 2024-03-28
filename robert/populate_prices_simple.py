@@ -1,10 +1,7 @@
-import config, sqlite3, time, logging
+import config, sqlite3, time
 import alpaca_trade_api as tradeapi
 from datetime import datetime, timedelta
 from time import sleep
-
-# Set up logging
-logging.basicConfig(level=logging.INFO)
 
 connection = sqlite3.connect(config.DB_FILE)
 connection.row_factory = sqlite3.Row
@@ -27,6 +24,7 @@ end_date = datetime.now()
 chunk_size = 200
 for i in range(0, len(symbols), chunk_size):
     symbol_chunk = symbols[i: i + chunk_size]
+    print(f"Querying API for symbols: {', '.join(symbol_chunk)}")
 
     # Add delay/retry mechanism
     retries = 3
@@ -41,15 +39,13 @@ for i in range(0, len(symbols), chunk_size):
             else:
                 raise
 
-    for symbol in symbol_chunk:
-        bars = barsets[symbol]
-        total_bars = len(bars)
-        for bar in bars:
-            asset_id = asset_dict[symbol]
-            cursor.execute("""
-                INSERT INTO asset_prices (asset_id, date, open, high, low, close, volume)
-                VALUES (?,?,?,?,?,?,?)
-            """, (asset_id, bar.t.date(), bar.o, bar.h, bar.l, bar.c, bar.v))
+    for bar in barsets:
+        print(f"Processing symbol {bar.S}")
+        asset_id = asset_dict[bar.S]
+        print(bar.t, bar.o, bar.h, bar.l, bar.c, bar.v)
+        cursor.execute("""
+            INSERT INTO asset_prices (asset_id, date, open, high, low, close, volume)
+            VALUES (?,?,?,?,?,?,?)
+        """, (asset_id, bar.t.date(), bar.o, bar.h, bar.l, bar.c, bar.v))
 
-    logging.info(f"Received {total_bars} prices for symbol {symbol}")
     connection.commit()
